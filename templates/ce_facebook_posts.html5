@@ -1,0 +1,58 @@
+ <? if ($this->beforeStyle): ?>
+ <?= $this->beforeStyle; ?>
+<? endif; ?>
+    <div class="<?=$this->class?>" id="<?=$this->cssID?>">
+        <p class="date"><?=$this->createdTime?></p>
+        <h3><?=$this->title?></h3>
+        <p><?=$this->message?></p>
+        <?php if ($this->videoLink): ?>
+        	<?php if ($this->videoClass == 'other'): ?>
+        		<video poster="<?= $this->videoThumb ?>" controls src="<?= $this->videoLink ?>">Ihr Browser kann dieses Video nicht wiedergeben.<br/>
+    Sie können es jedoch <a href="<?= $this->videoLink ?>">hier</a> anschauen.</video>
+        	<?php else: ?>
+        		<div class="video_container <?= $this->videoClass ?>">
+        			<div class="video-link-wrapper">
+        				<div class="video-link <?= $this->videoClass ?>" data-videoId="<?= $this->videoId; ?>">
+        		    	</div>
+        		    </div>
+        		</div>
+        	<?php endif; ?>
+        <?php endif; ?>
+
+        <? if ($this->imagePaths): ?>
+                <? foreach ($this->imagePaths as $index => $path): ?>
+                    <? if ($index === 0): ?>
+                        <figure class="image_container float_<?= $this->floatClass; ?>">
+                            <a class="cboxElement" href="<?= $path['path'] ?>" data-lightbox="<?='lb'.$this->cssID?>">
+                                <img src="<?= $path['resizedPath'] ?: $path['path']?>" />
+                            </a>
+                        </figure>
+                    <? else: ?>
+                        <a class="cboxElement" style="display:none;" href="<?= $path['path'] ?>" data-lightbox="<?='lb'.$this->cssID?>"></a>
+                    <? endif; ?>
+                <? endforeach; ?>
+
+        <? elseif ($this->imageSrcFacebook): ?>
+            <?php foreach (unserialize($this->imageSrcFacebook) as $index => $imgSrc): ?>
+                <? if ($index === 0): ?>
+                    <figure class="image_container float_<?= $this->floatClass; ?>">
+                      <?php if (!strpos($imgSrc, '://external')): ?>
+                        <a class="cboxElement" data-lightbox="<?='lb'.$this->cssID?>" href="<?= $imgSrc ?>"<?php echo $this->attributes; ?>>
+                      <?php else: ?>
+                        <a target="_blank" class="" href="<?= $this->facebookLinkHref ?>">
+                      <?php endif; ?>
+                            <img src="<?= $imgSrc ?>" />
+                        </a>
+                    </figure>
+                <? else: ?>
+                <?php if (!strpos($imgSrc, '://external')): ?>
+                    <a class="cboxElement" href="<?= $imgSrc ?>" style="display:none;" data-lightbox="<?='lb'.$this->cssID?>"></a>
+                <?php endif; ?>
+                <? endif; ?>
+            <?php endforeach; ?>
+        <?endif;?>
+
+        <? if ($this->facebookLink): ?>
+            <?= $this->facebookLink; ?>
+        <? endif; ?>
+    </div>
