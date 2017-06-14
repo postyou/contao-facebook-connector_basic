@@ -1,4 +1,4 @@
-contao-facebook-connector_basic
+Contao Facebook Connector - Basic Version
 ============
 Facebook Connector for Contao - Basic Version
 
