@@ -9,13 +9,17 @@ If you interested in the professional Version, please contact us: https://www.po
 ## What's included
 
 Here is a short overview of what you can do with the module:
+
 Basic Version
+
  * download posts of your facebook page
  * download the posts manually or automatically
  * transfer images of the posts in the contao filesystem
  * maintain your posts in the contao backend
  * show your posts in frontend with a content element
+
 Pro Version
+
  * download Facebook photo galleries and maintain them in contao backend
  * download Facebook events and maintain them in contao backend
  * possibility to integrate events into contao event module
