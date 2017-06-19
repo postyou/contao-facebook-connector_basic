@@ -222,7 +222,7 @@ class FbConnectorPostGet extends \FbConnector
 
 
                         if (strpos($videoId, '?') !== false) {
-                            $videoId = substr($videoId,0, strpos($videoId, '?'));
+                            $videoId = substr($videoId, 0, strpos($videoId, '?'));
                         }
                         $model->videoId = $videoId;
                     }
@@ -403,7 +403,7 @@ class FbConnectorPostGet extends \FbConnector
     {
         if ((empty($post['message']) && empty($post['attachments']))
           || ($post['type'] === 'event' && empty($post['message']))
-          || ($post['type'] === 'link' && empty($post['message'] && empty($post['attachments']['data'][0]['description'])))
+          || ($post['type'] === 'link' && empty($post['message']) && empty($post['attachments']['data'][0]['description']))
         || ($post['type'] === 'photo' && ($post['attachments']['data'][0]['type'] == 'cover_photo' || ($post['attachments']['data'][0]['type'] == 'profile_media')) && empty($post['message']))) {
             return false;
         }
@@ -469,26 +469,23 @@ class FbConnectorPostGet extends \FbConnector
         return $queryArr;
     }
 
-    private function splitTitleAndMessage(&$title, &$message, $searchStr) {
-
+    private function splitTitleAndMessage(&$title, &$message, $searchStr)
+    {
         $intCharCount = 0;
         $arrChunks = preg_split('/\s+/', $searchStr);
         $arrWordsTitle = array();
         $arrWordsMessage = array();
 
-        foreach ($arrChunks as $strChunk)
-        {
+        foreach ($arrChunks as $strChunk) {
             $intCharCount += utf8_strlen(StringUtil::decodeEntities($strChunk));
 
-            if ($intCharCount++ <= 70)
-            {
+            if ($intCharCount++ <= 70) {
                 $arrWordsTitle[] = $strChunk;
                 continue;
             } else {
                 $arrWordsMessage[] = $strChunk;
                 continue;
             }
-
         }
 
         $title = implode(' ', $arrWordsTitle).' ...';
