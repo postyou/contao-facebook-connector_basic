@@ -31,3 +31,17 @@ Pro Version
 1. Install the module with composer.
 1. Create a Facebook App for your Website on https://developers.facebook.com/ (you need an account).
 1. Enter Facebook APP ID and APP Secret in the Settings of the Module.
+
+
+
+  ## Pictures
+
+Backend View Module
+![screenshot](https://github.com/postyou/contao-facebook-connector_basic/blob/master/readme_img/modul_2.PNG)
+
+Post on Facebook
+![screenshot](https://github.com/postyou/contao-facebook-connector_basic/blob/master/readme_img/facebook_post.JPG)
+Post in Contao Backend
+![screenshot](https://github.com/postyou/contao-facebook-connector_basic/blob/master/readme_img/news_modul.JPG)
+Post in Frontend Website
+![screenshot](https://github.com/postyou/contao-facebook-connector_basic/blob/master/readme_img/post_im_frontend.JPG)
