@@ -143,7 +143,7 @@ class FacebookPostList extends \ContentElement
 
                     if (is_array($multiSRC)) {
                         foreach ($multiSRC as $uuid) {
-                            $size = unserialize($this->size);
+                            $size = unserialize($this->sizeFacebook);
                             $path = \FilesModel::findByUuid($uuid)->path;
                             if (!empty($path)) {
                                 if (is_array($size) && (!empty($size[0]))) {
