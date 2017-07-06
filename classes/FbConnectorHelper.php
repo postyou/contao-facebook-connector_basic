@@ -52,7 +52,7 @@ class FbConnectorHelper
         }
         $str = ' ' . $str;
         $str = preg_replace(
-        '`[^"]([^"=\'>])(((http|https|ftp)://|www.)[^\s<]+[^\s<\.)])`i',
+        '`([^"=\'>])(((http|https|ftp)://|www.)[^\s<]+[^\s<\.)])`i',
         '$1<a href="$2"'.$attrs.'>$2</a>',
         $str
         );
