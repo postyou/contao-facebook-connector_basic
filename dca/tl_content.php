@@ -1,4 +1,17 @@
 <?php
+
+/**
+ *
+ * Extension for Contao Open Source CMS (contao.org)
+ *
+ * Copyright (c) 2016-2018 POSTYOU
+ *
+ * @package
+ * @author  Mario Gienapp
+ * @link    http://www.postyou.de
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 $GLOBALS['TL_DCA']['tl_content']['palettes']['facebook_post_list'] = '{type_legend},type,headline,headlineOptn,facebookSites,perPage,sizeFacebook,maxPosts,messageLength, showFacebookLinkAlways, removeHashTag';
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['facebookSites'] = array(

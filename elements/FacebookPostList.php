@@ -1,4 +1,17 @@
 <?php
+
+/**
+ *
+ * Extension for Contao Open Source CMS (contao.org)
+ *
+ * Copyright (c) 2016-2018 POSTYOU
+ *
+ * @package
+ * @author  Mario Gienapp
+ * @link    http://www.postyou.de
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 namespace postyou;
 
 class FacebookPostList extends \ContentElement
@@ -41,7 +54,6 @@ class FacebookPostList extends \ContentElement
             ), null, array('order' => 'created_time DESC', 'limit' => $this->maxPosts));
 
         $objTemplate = new \FrontendTemplate('ce_facebook_posts');
-        // $objTemplate->setData($postModels);
 
         $total = count($postModels);
 

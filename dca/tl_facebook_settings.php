@@ -1,13 +1,21 @@
 <?php
+
+/**
+ *
+ * Extension for Contao Open Source CMS (contao.org)
+ *
+ * Copyright (c) 2016-2018 POSTYOU
+ *
+ * @package
+ * @author  Mario Gienapp
+ * @link    http://www.postyou.de
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 $GLOBALS['TL_DCA']['tl_facebook_settings'] = array(
     'config' => array(
         'dataContainer' => 'File'
     ),
-    // 'switchToEdit' => true,
-    // 'enableVersioning' => true,
-    // ,'onload_callback' => array (array('tl_new','onLoad'))
-    // ,'ondelete_callback' => array(array("tl_new","onDelete"))
-    // ,'onversion_callback' => array(array("tl_new","onVersion"))
 
     'palettes' => array(
         '__selector__' => array(),

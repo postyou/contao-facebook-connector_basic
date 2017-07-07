@@ -1,4 +1,17 @@
 <?php
+
+/**
+ *
+ * Extension for Contao Open Source CMS (contao.org)
+ *
+ * Copyright (c) 2016-2018 POSTYOU
+ *
+ * @package
+ * @author  Mario Gienapp
+ * @link    http://www.postyou.de
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 use Contao\Environment;
 use Facebook\Facebook;
 use postyou\ConnectionType;
@@ -754,11 +767,7 @@ class tl_facebook_sites_basic extends \Backend
                 (@func_get_arg(12) ?: null));
             $this->redirect($this->getReferer());
         }
-        // Check permissions AFTER checking the tid, so hacking attempts are logged
-        // if (!$this->User->hasAccess('tl_page::published', 'alexf'))
-        // {
-        // return '';
-        // }
+
         $href .= '&amp;tid=' . $row['id'] . '&amp;state=' . ($row['published'] ? '' : 1);
         if (! $row['published']) {
             $icon = 'invisible.gif';
@@ -766,10 +775,7 @@ class tl_facebook_sites_basic extends \Backend
         $objPage = $this->Database->prepare("SELECT * FROM tl_new WHERE id=?")
             ->limit(1)
             ->execute($row['id']);
-        // if (!$this->User->hasAccess($row['type'], 'alpty') || !$this->User->isAllowed(BackendUser::CAN_EDIT_PAGE, $objPage->row()))
-        // {
-        // return Image::getHtml($icon) . ' ';
-        // }
+
         return '<a href="' . $this->addToUrl($href) . '" title="' . specialchars($title) . '"' .
              $attributes . '>' .
              Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') .

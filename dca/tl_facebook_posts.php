@@ -1,27 +1,32 @@
 <?php
+
+/**
+ *
+ * Extension for Contao Open Source CMS (contao.org)
+ *
+ * Copyright (c) 2016-2018 POSTYOU
+ *
+ * @package
+ * @author  Mario Gienapp
+ * @link    http://www.postyou.de
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 use Contao\DataContainer;
 use Contao\Dbafs;
 use postyou\FacebookPostsDeleteListModel;
 
-// if (TL_MODE == 'BE'){
-// $GLOBALS['TL_BODY']['tl_facebook_posts'] = '<script src="system/modules/tl_facebook_posts/assets/js/be.js"></script>';
-
-// }
 $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
     'config' => array(
         'dataContainer' => 'Table',
         'ptable' => 'tl_facebook_sites',
         'switchToEdit' => true,
-        // 'enableVersioning' => true,
         'sql' => array(
             'keys' => array(
                 'id' => 'primary',
                 'pid' => 'index'
             )
         ),
-        // 'pid,' => 'unique'
-
-        // ,'onload_callback' => array (array('tl_facebook_posts','onLoad'))
         'ondelete_callback' => array(
             array(
                 'tl_facebook_posts',
@@ -35,7 +40,6 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
             )
         )
     ),
-    // ,'onversion_callback' => array(array('tl_facebook_posts','onVersion'))
     'list' => array(
         'sorting' => array(
             'mode' => 4,
@@ -77,7 +81,6 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
                 'href' => 'act=edit',
                 'icon' => 'edit.gif'
             ),
-            // 'button_callback' => array('tl_facebook_posts', 'editButtonPrint')
             'copy' => array(
                 'label' => &$GLOBALS['TL_LANG']['tl_facebook_posts']['copy'],
                 'href' => 'act=paste&amp;mode=copy',
@@ -106,7 +109,6 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
             )
         )
     ),
-    // "edit"=>array(),
     'palettes' => array(
         '__selector__' => array(
             'facebookPostType'
@@ -134,9 +136,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
             'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
         'updated_time' => array(
-            // 'label' => &$GLOBALS['TL_LANG']['tl_facebook_posts']['updated_time'],
             'sql' => "int(10) unsigned NOT NULL default '0'",
-            // 'sorting' => true,
             'flag' => 12
         ),
         'created_time' => array(
@@ -147,13 +147,10 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
         ),
         'title' => array(
             'label' => &$GLOBALS['TL_LANG']['tl_facebook_posts']['title'],
-            // 'filter' => true,
             'search' => true,
             'sorting' => true,
-            // 'exclude' => true,
             'inputType' => 'text',
             'eval' => array(
-                // 'mandatory' => true,
                 'maxlength' => 255,
                 'readonly' => true
             ),
@@ -296,16 +293,6 @@ class tl_facebook_posts extends \Backend
         return $args;
     }
 
-    // public function createAndSaveTitle($varValue, $dc)
-    // {
-    // if (empty($dc->activeRecord->title)) {
-    // $facebookPostsModel = \FacebookPostsModel::findById($dc->activeRecord->id);
-    // $facebookPostsModel->title = StringUtil::substr($dc->activeRecord->postMessage, 70, '...');
-    // $facebookPostsModel->save();
-    // }
-
-    // return $varValue;
-    // }
     public function showInList($arrRow)
     {
         $date = new DateTime();
@@ -377,8 +364,6 @@ class tl_facebook_posts extends \Backend
         // Check permissions to edit
         Input::setGet('id', $intId);
         Input::setGet('act', 'toggle');
-
-
 
         // Trigger the save_callback
         if (is_array($GLOBALS['TL_DCA']['tl_article']['fields']['published']['save_callback'])) {
