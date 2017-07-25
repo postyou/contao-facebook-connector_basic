@@ -9,7 +9,6 @@
         "posts",
         "galeries"
     ],
-    "version": "0.9.0",
     "type": "contao-module",
     "license": "LGPL-3.0+",
     "authors": [
