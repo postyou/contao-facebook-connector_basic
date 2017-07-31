@@ -245,7 +245,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
     )
 );
 
-class tl_facebook_posts extends \Backend
+class tl_facebook_posts_basic extends \Backend
 {
     public function onSubmit($dc)
     {
