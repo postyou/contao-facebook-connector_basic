@@ -22,7 +22,7 @@
         <? if ($this->imagePaths): ?>
                 <? foreach ($this->imagePaths as $index => $path): ?>
                     <? if ($index === 0): ?>
-                        <figure class="image_container float_<?= $this->floatClass; ?>">
+                        <figure class="image_container <?= $this->floatClass; ?>">
                             <a class="cboxElement" href="<?= $path['path'] ?>" data-lightbox="<?='lb'.$this->cssID?>">
                                 <img src="<?= $path['resizedPath'] ?: $path['path']?>" />
                             </a>
@@ -35,7 +35,7 @@
         <? elseif ($this->imageSrcFacebook): ?>
             <?php foreach (unserialize($this->imageSrcFacebook) as $index => $imgSrc): ?>
                 <? if ($index === 0): ?>
-                    <figure class="image_container float_<?= $this->floatClass; ?>">
+                    <figure class="image_container <?= $this->floatClass; ?>">
                       <?php if (!strpos($imgSrc, '://external')): ?>
                         <a class="cboxElement" data-lightbox="<?='lb'.$this->cssID?>" href="<?= $imgSrc ?>"<?php echo $this->attributes; ?>>
                       <?php else: ?>

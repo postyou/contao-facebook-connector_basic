@@ -36,16 +36,19 @@ class BackendAjaxHook extends \Backend
                     $fbConnector->getPostsFromSiteIdAndSaveInDb($id);
                 } catch (\Throwable $e) {
                     \System::loadLanguagefile('tl_facebook_sites');
+                    http_response_code(500);
                     echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
                     exit();
                     break;
                 } catch (\Exception $e) {
                     \System::loadLanguagefile('tl_facebook_sites');
+                    http_response_code(500);
                     echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
                     exit();
                     break;
                 } catch (\Error $e) {
                     \System::loadLanguagefile('tl_facebook_sites');
+                    http_response_code(500);
                     echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
                     exit();
                     break;

@@ -251,7 +251,7 @@ class FbConnectorPostGet extends \FbConnector
                 // Bild von externem Link
                 if (! empty($post['full_picture']) && $post['type'] === 'link' && $post['attachments']['data'][0]['type'] !== 'multi_share') {
                     if (strpos($post['full_picture'], '://external')) {
-                        $querrArr = $this->getQueryArr($post['full_picture']);
+                        $queryArr = $this->getQueryArr($post['full_picture']);
                     }
 
                     if ($facebookSiteModel->saveAttachmentsToFilesystem) {
@@ -272,6 +272,9 @@ class FbConnectorPostGet extends \FbConnector
                     } else {
                         $model->imageSrcFacebook = $this->addBlobData($model->imageSrcFacebook,
                         $queryArr['url'] ?: $post['full_picture']);
+                        $model->addSpecificData(array(
+                          'floating' => $facebookSiteModel->floating
+                        ));
                     }
 
                     $model = $model->save();

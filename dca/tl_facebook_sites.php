@@ -526,53 +526,41 @@ class tl_facebook_sites_basic extends \Backend
     /**
      * Button functions *
      */
-    public function loadPostsButton()
-    {
-        return '<div class="downloadWrapper w50 clr"><div id="downloadButton" class="downloadButton"><a type="button" href="#" onclick="getLoadPostsLink(); return false;" class="tl_submit">' .
-             $GLOBALS['TL_LANG']['tl_facebook_sites']['downloadButton'] . '</a></div></div>
-    			<script>
-    				function getLoadPostsLink() {
-    	                AjaxRequest.displayBox(Contao.lang.loading + " &#46;&#46;&#46;<br><br> '. $GLOBALS['TL_LANG']['tl_facebook_sites']['waitingTimeText'] .'");
+     public function loadPostsButton()
+     {
+         return '<div class="downloadWrapper w50 clr"><div id="downloadButton" class="downloadButton"><a type="button" href="#" onclick="getLoadPostsLink(); return false;" class="tl_submit">' .
+              $GLOBALS['TL_LANG']['tl_facebook_sites']['downloadButton'] . '</a></div></div>
+     			<script>
+     				function getLoadPostsLink() {
+     	                AjaxRequest.displayBox(Contao.lang.loading + " &#46;&#46;&#46;<br><br> '. $GLOBALS['TL_LANG']['tl_facebook_sites']['waitingTimeText'] .'");
 
-                      var url = location.href + "&key=getPosts";
-                      if (location.href.indexOf("&code") > -1) {
-   	                    url = location.href.substr(0, location.href.indexOf("&code")) + "&key=getPosts";
-                      }
+                       var url = location.href + "&key=getPosts";
+                       if (location.href.indexOf("&code") > -1) {
+    	                    url = location.href.substr(0, location.href.indexOf("&code")) + "&key=getPosts";
+                       }
 
-                      new Request.JSON({
-                        url: url,
-                        noCache: true,
-                        data: "REQUEST_TOKEN=" + Contao.request_token + "&action=loadPosts",
-                        onFailure: function(response) {
-                          AjaxRequest.hideBox();
-                          Backend.openModalWindow(500, response.title, response.exception);
-                        },
-                        onSuccess: function(response) {
-                          location.href = response;
-                        },
-                        onError: function(response, error) {
-                          AjaxRequest.hideBox();
-                          Backend.openModalWindow(500, response.title, response.exception);
-                        }
-                      }).send();
+                       new Request.JSON({
+                         url: url,
+                         noCache: true,
+                         data: "REQUEST_TOKEN=" + Contao.request_token + "&action=loadPosts",
+                         onFailure: function(response) {
+                           response = JSON.parse(response.response);
+                           AjaxRequest.hideBox();
+                           Backend.openModalWindow(500, response.title, response.exception);
+                         },
+                         onSuccess: function(response) {
+                           location.href = response;
+                         },
+                         onError: function(response, error) {
+                           response = JSON.parse(response.response);
+                           AjaxRequest.hideBox();
+                           Backend.openModalWindow(500, response.title, response.exception);
+                         }
+                       }).send();
+     				}
 
-                      /**
-    	                var xmlhttp = new XMLHttpRequest();
-                        xmlhttp.onreadystatechange = function() {
-                            console.log(xmlhttp);
-                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                              location.href = xmlhttp.responseText;
-                            } else if (xmlhttp.status == 500) {
-                              AjaxRequest.displayBox("<h1>Fehler</h1><p>Es ist ein Fehler aufgetreten! " + xmlhttp.statusText + "</p>");
-                            }
-                        }
-                        xmlhttp.open("GET", url, true);
-                        xmlhttp.send();
-                        **/
-    				}
-
-    			</script>';
-    }
+     			</script>';
+     }
 
     public function publishPostsButton()
     {
