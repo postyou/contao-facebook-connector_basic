@@ -159,6 +159,9 @@ class FbConnectorPostGet extends \FbConnector
                 $title;
                 $message;
                 $searchStr;
+
+                $searchStr = htmlentities($searchStr);
+
                 switch ($post['type']) {
                   case 'link':
                   case 'video':
