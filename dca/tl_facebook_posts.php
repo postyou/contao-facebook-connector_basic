@@ -29,13 +29,13 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
         ),
         'ondelete_callback' => array(
             array(
-                'tl_facebook_posts',
+                'tl_facebook_posts_basic',
                 'onDelete'
             )
         ),
         'onsubmit_callback' => array(
             array(
-                'tl_facebook_posts',
+                'tl_facebook_posts_basic',
                 'onSubmit'
             )
         )
@@ -52,7 +52,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
                 'title'
             ),
             'child_record_callback' => array(
-                'tl_facebook_posts',
+                'tl_facebook_posts_basic',
                 'showInList'
             )
         ),
@@ -63,7 +63,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
             'format' => '%s',
             'showColumns' => true,
             'label_callback' => array(
-                'tl_facebook_posts',
+                'tl_facebook_posts_basic',
                 'labelCallback'
             )
         ),
@@ -99,7 +99,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_facebook_posts']['toggle'],
                 'icon'                => 'visible.gif',
                 'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback'     => array('tl_facebook_posts', 'toggleIcon')
+                'button_callback'     => array('tl_facebook_posts_basic', 'toggleIcon')
             ),
             'show' => array(
                 'label' => &$GLOBALS['TL_LANG']['tl_facebook_posts']['show'],
@@ -162,7 +162,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
             'search' => 'true',
             'filter' => true,
             'options_callback' => array(
-                'tl_facebook_posts',
+                'tl_facebook_posts_basic',
                 'getTypes'
             ),
             'eval' => array(
