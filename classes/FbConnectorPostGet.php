@@ -160,8 +160,6 @@ class FbConnectorPostGet extends \FbConnector
                 $message;
                 $searchStr;
 
-                $searchStr = htmlentities($searchStr);
-
                 switch ($post['type']) {
                   case 'link':
                   case 'video':
@@ -173,6 +171,9 @@ class FbConnectorPostGet extends \FbConnector
                       $searchStr = $post['message'];
                       break;
                 }
+
+                $searchStr = htmlentities($searchStr);
+                $searchStr = \FbConnectorHelper::removeEmoticons($searchStr);
 
                 if ($facebookSiteModel->headlineType == 'length') {
                     $this->splitTitleAndMessage($title, $message, $searchStr);
@@ -330,7 +331,8 @@ class FbConnectorPostGet extends \FbConnector
                                 if (isset($pictureModel)) {
                                     $model->multiSRC = $this->addBlobData($model->multiSRC,
                                     $pictureModel->uuid);
-                                    $model->addSpecificData(array('orderSRC' => $model->multiSRC));
+                                    $model->addSpecificData(array('orderSRC' => $model->multiSRC,
+                                    'multiSRC' => $model->multiSRC));
 
                                     if ($index === 0) {
                                         $model->addSpecificData(array(

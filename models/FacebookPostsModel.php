@@ -52,6 +52,9 @@ class FacebookPostsModel extends \Model
                   case 'icon':
                           $this->icon = $value;
                           break;
+                  case 'floating':
+                          $this->floating = $value;
+                          break;
                   case 'facebookPostType':
                           $this->facebookPostType = $value;
                           break;

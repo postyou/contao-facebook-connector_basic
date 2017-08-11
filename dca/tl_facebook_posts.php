@@ -38,6 +38,12 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
                 'tl_facebook_posts_basic',
                 'onSubmit'
             )
+        ),
+        'onload_callback' => array(
+            array(
+                'tl_facebook_posts_basic',
+                'loadLanguage'
+            )
         )
     ),
     'list' => array(
@@ -151,8 +157,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
             'sorting' => true,
             'inputType' => 'text',
             'eval' => array(
-                'maxlength' => 255,
-                'readonly' => true
+                'maxlength' => 255
             ),
             'sql' => "varchar(255) NOT NULL default ''"
         ),
@@ -247,6 +252,11 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
 
 class tl_facebook_posts_basic extends \Backend
 {
+    public function loadLanguage()
+    {
+        \System::loadLanguageFile('tl_content');
+    }
+
     public function onSubmit($dc)
     {
         if (empty($dc->activeRecord->created_time)) {
