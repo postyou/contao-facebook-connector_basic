@@ -28,7 +28,7 @@ Pro Version
 
  ## How to use
 
-1. Install the module with composer.
+1. Install the module with composer. If you install the module manually, you will need the Facebook Graph SDK https://github.com/facebook/php-graph-sdk.
 1. Create a Facebook App for your Website on https://developers.facebook.com/ (you need an account).
 1. Enter Facebook APP ID and APP Secret in the Settings of the Module.
 
