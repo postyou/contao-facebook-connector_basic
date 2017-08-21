@@ -15,7 +15,7 @@
 
             var iframe_url;
             if ($(this).hasClass('youtube')) {
-                $(this).css('background-image', 'url(https://i.ytimg.com/vi/' + $(this).attr('data-videoId') + '/sddefault.jpg)');
+                $(this).css('background-image', 'url(https://i.ytimg.com/vi/' + $(this).attr('data-videoId') + '/0.jpg)');
                 iframe_url = 'https://www.youtube.com/embed/' + $(this).attr('data-videoId') + '?autoplay=1&autohide=1';
                 if ($(this).data('params')) iframe_url+='&'+$(this).data('params');
 
