@@ -120,9 +120,18 @@ $GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl'] = "http://ww
 $GLOBALS['TL_LANG']['tl_facebook_sites']['proVersionLink'] = "<a class=\"pro_version_link\" target=\"_blank\" href=\"".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."\">weitere Informationen</a>";
 $GLOBALS['TL_LANG']['tl_facebook_sites']['onlyProVersionTxt'] = "Diese Funktion ist nur in der Pro-Version enthalten. ".$GLOBALS['TL_LANG']['tl_facebook_sites']['proVersionLink'];
 
+
 //Exceptions
 $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle'] = "Autorisierungsfehler";
-$GLOBALS['TL_LANG']['tl_facebook_sites']['noAppIDException'] = "Es wurde keine App Id angegeben. <br> Bitte tragen Sie die Id in den Einstellungen zum Modul ein. <br> Weitere Information finden Sie unter
-<a target=\"_blank\" href=\"".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."#AppID\">".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."</a>";
-$GLOBALS['TL_LANG']['tl_facebook_sites']['noAppSecretException'] = "Es wurde kein App Secret angegeben. <br> Bitte tragen Sie das Secret in den Einstellungen zum Modul ein. <br> Weitere Information finden Sie unter
-<a target=\"_blank\" href=\"".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."#AppID\">".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."</a>";
+
+$GLOBALS['TL_LANG']['tl_facebook_sites']['noAppIDException'] = "Es wurde keine App Id angegeben. <br> Bitte tragen Sie die Id in den Einstellungen des Modules ein.".
+"<br> Weitere Information finden Sie unter <a target=\'_blank\' href=\'".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."#AppID\'>".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."</a>";
+
+$GLOBALS['TL_LANG']['tl_facebook_sites']['noAppSecretException'] = "Es wurde kein App Secret angegeben. <br> Bitte tragen Sie das Secret in den Einstellungen des Modules ein.".
+"<br> Weitere Information finden Sie unter <a target=\'_blank\' href=\'".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."#AppSecret\'>".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."</a>";
+
+$GLOBALS['TL_LANG']['tl_facebook_sites']['noFacebookSDKException'] = "Das Facebook Graph SDK wurde nicht installiert".
+"<br> Sie finden das SDK unter <a target=\'_blank\' href=\'https://github.com/facebook/php-graph-sdk\'>https://github.com/facebook/php-graph-sdk</a>";
+
+//$GLOBALS['TL_LANG']['tl_facebook_sites']['noFacebookSDKException'] = "Das Facebook Graph SDK wurde nicht installiert. <br> Bitte f&uuml;gen Sie das SDK ihrer Contao Installation hinzu. <br> Das SDK finden Sie unter
+//<a target=\'_blank\' href=\'https://github.com/facebook/php-graph-sdk\'>https://github.com/facebook/php-graph-sdk</a>";

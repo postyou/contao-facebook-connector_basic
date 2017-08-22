@@ -16,6 +16,36 @@ namespace postyou;
 
 class BackendAjaxHook extends \Backend
 {
+
+    protected function loadData($connectionType, $functionName) {
+        try {
+            $id = \Input::get('id');
+            $fbConnector = \FbConnector::getInstance(
+                array(
+                    'connectionType' => $connectionType
+                ));
+
+            $fbConnector->$functionName($id);
+
+        } catch (\Throwable $e) {
+            \System::loadLanguagefile('tl_facebook_sites');
+            http_response_code(500);
+            echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
+            exit();
+        } catch (\Exception $e) {
+            \System::loadLanguagefile('tl_facebook_sites');
+            http_response_code(500);
+            echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
+            exit();
+        } catch (\Error $e) {
+            \System::loadLanguagefile('tl_facebook_sites');
+            http_response_code(500);
+            echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
+            exit();
+        }
+    }
+
+
     public function executePreActions($strAction)
     {
         switch ($strAction) {
@@ -26,33 +56,8 @@ class BackendAjaxHook extends \Backend
 
                 $_SESSION['tl_facebook_sites']['savedPosts'] = array();
                 $_SESSION['tl_facebook_sites']['savedPostsCount'] = 0;
-                $id = \Input::get('id');
-                try {
-                    $fbConnector = \FbConnector::getInstance(
-                        array(
-                            'connectionType' => ConnectionType::POST_GET
-                        ));
 
-                    $fbConnector->getPostsFromSiteIdAndSaveInDb($id);
-                } catch (\Throwable $e) {
-                    \System::loadLanguagefile('tl_facebook_sites');
-                    http_response_code(500);
-                    echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
-                    exit();
-                    break;
-                } catch (\Exception $e) {
-                    \System::loadLanguagefile('tl_facebook_sites');
-                    http_response_code(500);
-                    echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
-                    exit();
-                    break;
-                } catch (\Error $e) {
-                    \System::loadLanguagefile('tl_facebook_sites');
-                    http_response_code(500);
-                    echo json_encode(array('exception' => $e->getMessage(), 'title' => $GLOBALS['TL_LANG']['tl_facebook_sites']['authenticationExceptionTitle']));
-                    exit();
-                    break;
-                }
+                $this->loadData(ConnectionType::POST_GET, "getPostsFromSiteIdAndSaveInDb");
 
                 $url = \Controller::addToUrl('&reportTypePost=true&directionGet=true', true,
                     array(

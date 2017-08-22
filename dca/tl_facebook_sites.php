@@ -12,9 +12,7 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0
  */
 
-use Contao\Environment;
 use Facebook\Facebook;
-use postyou\ConnectionType;
 
 $GLOBALS['TL_DCA']['tl_facebook_sites'] = array(
     'config' => array(
@@ -482,16 +480,6 @@ class tl_facebook_sites_basic extends \Backend
     		downloadWrapper.appendChild(autoSyncPosts);
     		downloadWrapper.appendChild(autoSyncPostOptions);
 
-    		// var clearDiv = document.createElement("DIV");
-    		// clearDiv.className = "clr";
-    		// document.getElementById("sub_synchronizePosts").appendChild(clearDiv);
-
-        // var newsWrapper = document.createElement("DIV");
-        // newsWrapper.id = "newsWrapper";
-        // newsWrapper.appendChild(document.getElementsByClassName("ctrl_addPostsToNewsModule")[0]);
-
-
-
     	</script>';
     }
 
@@ -528,38 +516,8 @@ class tl_facebook_sites_basic extends \Backend
      */
      public function loadPostsButton()
      {
-         return '<div class="downloadWrapper w50 clr"><div id="downloadButton" class="downloadButton"><a type="button" href="#" onclick="getLoadPostsLink(); return false;" class="tl_submit">' .
-              $GLOBALS['TL_LANG']['tl_facebook_sites']['downloadButton'] . '</a></div></div>
-     			<script>
-     				function getLoadPostsLink() {
-     	                AjaxRequest.displayBox(Contao.lang.loading + " &#46;&#46;&#46;<br><br> '. $GLOBALS['TL_LANG']['tl_facebook_sites']['waitingTimeText'] .'");
-
-                       var url = location.href + "&key=getPosts";
-                       if (location.href.indexOf("&code") > -1) {
-    	                    url = location.href.substr(0, location.href.indexOf("&code")) + "&key=getPosts";
-                       }
-
-                       new Request.JSON({
-                         url: url,
-                         noCache: true,
-                         data: "REQUEST_TOKEN=" + Contao.request_token + "&action=loadPosts",
-                         onFailure: function(response) {
-                           response = JSON.parse(response.response);
-                           AjaxRequest.hideBox();
-                           Backend.openModalWindow(500, response.title, response.exception);
-                         },
-                         onSuccess: function(response) {
-                           location.href = response;
-                         },
-                         onError: function(response, error) {
-                           response = JSON.parse(response.response);
-                           AjaxRequest.hideBox();
-                           Backend.openModalWindow(500, response.title, response.exception);
-                         }
-                       }).send();
-     				}
-
-     			</script>';
+         return '<div class="downloadWrapper w50 clr"><div id="downloadButton" class="downloadButton"><a type="button" onclick="getLoadPostsLink(); return false;" class="tl_submit">' .
+              $GLOBALS['TL_LANG']['tl_facebook_sites']['downloadButton'] . '</a></div></div>'.$this->getButtonScript('getLoadPostsLink','loadPosts');
      }
 
     public function publishPostsButton()
@@ -571,34 +529,6 @@ class tl_facebook_sites_basic extends \Backend
     }
 
 
-
-    public function downloadGalleriesButton()
-    {
-        $class = "tl_submit";
-
-        return '<div class="clr"></div><div id="downloadGalleriesButton" class="downloadButton clr"><a type="button" href="#" onclick="getDownloadGalleriesLink(); return false;" class = "' .
-             $class . '">' . $GLOBALS['TL_LANG']['tl_facebook_sites']['downloadGalleriesButton'] . '</a></div>
-    			<script>
-    				function getDownloadGalleriesLink() {
-    	                AjaxRequest.displayBox(Contao.lang.loading + " &#46;&#46;&#46;<br><br> '. $GLOBALS['TL_LANG']['tl_facebook_sites']['waitingTimeText'] .'");
-
-                        var url = location.href + "&key=getGalleries";
-                        if (location.href.indexOf("&code") > -1) {
-     	                  url = location.href.substr(0, location.href.indexOf("&code")) + "&key=getGalleries";
-                        }
-
-    	                var xmlhttp = new XMLHttpRequest();
-                        xmlhttp.onreadystatechange = function() {
-                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                                location.href = xmlhttp.responseText;
-                            }
-                        }
-                        xmlhttp.open("GET", url, true);
-                        xmlhttp.send();
-    				}
-
-    			</script>';
-    }
 
 
 
@@ -791,4 +721,38 @@ class tl_facebook_sites_basic extends \Backend
             "UPDATE tl_new SET tstamp=" . time() . ", published='" . ($blnVisible ? 1 : '') .
                  "' WHERE id=?")->execute($intId);
     }
+
+    protected function getButtonScript($methodName, $action) {
+        return '<script>
+     				function '.$methodName.'() {
+     	                AjaxRequest.displayBox(Contao.lang.loading + " &#46;&#46;&#46;<br><br> '. $GLOBALS['TL_LANG']['tl_facebook_sites']['waitingTimeText'] .'");
+
+                       var url = location.href;
+                       if (location.href.indexOf("&code") > -1) {
+    	                    url = location.href.substr(0, location.href.indexOf("&code"));
+                       }
+
+                       new Request.JSON({
+                         url: url,
+                         noCache: true,
+                         data: "REQUEST_TOKEN=" + Contao.request_token + "&action='.$action.'",
+                         onFailure: function(response) {
+                           response = JSON.parse(response.response);
+                           AjaxRequest.hideBox();
+                           Backend.openModalWindow(500, response.title, response.exception);
+                         },
+                         onSuccess: function(response) {
+                           location.href = response;
+                         },
+                         onError: function(response, error) {
+                           response = JSON.parse(response.response);
+                           AjaxRequest.hideBox();
+                           Backend.openModalWindow(500, response.title, response.exception);
+                         }
+                       }).send();
+     				}
+
+     			</script>';
+    }
+
 }

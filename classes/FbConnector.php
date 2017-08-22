@@ -65,7 +65,7 @@ class FbConnector
     protected function getAppID()
     {
         if (empty($this->arrConfig['appID'])) {
-            throw new FacebookAuthenticationException($GLOBALS['TL_LANG']['tl_facebook_sites']['noAppIDException']);
+            throw new \Exception($GLOBALS['TL_LANG']['tl_facebook_sites']['noAppIDException']);
         }
         return $this->arrConfig['appID'];
     }
@@ -73,7 +73,7 @@ class FbConnector
     protected function getAppSecret()
     {
         if (empty($this->arrConfig['appSecret'])) {
-            throw new FacebookAuthenticationException($GLOBALS['TL_LANG']['tl_facebook_sites']['noAppSecretException']);
+            throw new \Exception($GLOBALS['TL_LANG']['tl_facebook_sites']['noAppSecretException']);
         }
         return $this->arrConfig['appSecret'];
     }
@@ -90,7 +90,11 @@ class FbConnector
 
     public function getAccessTokenQuery()
     {
-        return 'access_token=' . $this->getAppID() . '|' . $this->getAppSecret();
+        try {
+            return 'access_token=' . $this->getAppID() . '|' . $this->getAppSecret();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function setLimit($limit)

@@ -48,66 +48,69 @@ class FacebookPostList extends \ContentElement
         $count = 0;
 
         $siteIds = unserialize($this->facebookSites);
-        $postModels = \FacebookPostsModel::findBy(
-            array(
-                'pid IN (' . implode(',', $siteIds) . ') AND published = "1"'
-            ), null, array('order' => 'created_time DESC', 'limit' => $this->maxPosts));
+        if (!empty($siteIds)) {
 
-        $objTemplate = new \FrontendTemplate('ce_facebook_posts');
 
-        $total = count($postModels);
+            $postModels = \FacebookPostsModel::findBy(
+                array(
+                    'pid IN (' . implode(',', $siteIds) . ') AND published = "1"'
+                ), null, array('order' => 'created_time DESC', 'limit' => $this->maxPosts));
 
-        // Split the results
-        if ($this->perPage > 0) {
+            $objTemplate = new \FrontendTemplate('ce_facebook_posts');
 
-            // Get the current page
-            $id = 'page_n' . $this->id;
-            $page = (\Input::get($id) !== null) ? \Input::get($id) : 1;
+            $total = count($postModels);
 
-            // Do not index or cache the page if the page number is outside the range
-            if ($page < 1 || $page > max(ceil($total / $this->perPage), 1)) {
-                /** @var \PageModel $objPage */
-                global $objPage;
+            // Split the results
+            if ($this->perPage > 0) {
 
-                /** @var \PageError404 $objHandler */
-                $objHandler = new $GLOBALS['TL_PTY']['error_404']();
-                $objHandler->generate($objPage->id);
+                // Get the current page
+                $id = 'page_n' . $this->id;
+                $page = (\Input::get($id) !== null) ? \Input::get($id) : 1;
+
+                // Do not index or cache the page if the page number is outside the range
+                if ($page < 1 || $page > max(ceil($total / $this->perPage), 1)) {
+                    /** @var \PageModel $objPage */
+                    global $objPage;
+
+                    /** @var \PageError404 $objHandler */
+                    $objHandler = new $GLOBALS['TL_PTY']['error_404']();
+                    $objHandler->generate($objPage->id);
+                }
+
+                // Set limit and offset
+                $limit = $this->perPage;
+                $offset += (max($page, 1) - 1) * $this->perPage;
+
+                // Overall limit
+                if ($offset + $limit > $total) {
+                    $limit = $total - $offset;
+                }
+
+                // Adjust the overall limit
+                if (isset($limit)) {
+                    $total = min($limit, $total);
+                }
+
+                // Add the pagination menu
+                $objPagination = new \Pagination($total, $this->perPage,
+                    \Config::get('maxPaginationLinks'), $id);
+                $this->Template->pagination = $objPagination->generate("\n  ");
             }
 
-            // Set limit and offset
-            $limit = $this->perPage;
-            $offset += (max($page, 1) - 1) * $this->perPage;
+            $posts = array();
 
-            // Overall limit
-            if ($offset + $limit > $total) {
-                $limit = $total - $offset;
-            }
+            $postModels = \FacebookPostsModel::findBy(
+                array(
+                    'pid IN (' . implode(',', $siteIds) . ') AND published = "1"'
+                ), null,
+                array(
+                    'offset' => $offset,
+                    'limit' => isset($limit) ? $limit : $this->maxPosts,
+                    'order' => 'created_time DESC'
+                ));
 
-            // Adjust the overall limit
-            if (isset($limit)) {
-                $total = min($limit, $total);
-            }
-
-            // Add the pagination menu
-            $objPagination = new \Pagination($total, $this->perPage,
-                \Config::get('maxPaginationLinks'), $id);
-            $this->Template->pagination = $objPagination->generate("\n  ");
+            $pid = null;
         }
-
-        $posts = array();
-
-        $postModels = \FacebookPostsModel::findBy(
-            array(
-                'pid IN (' . implode(',', $siteIds) . ') AND published = "1"'
-            ), null,
-            array(
-                'offset' => $offset,
-                'limit' => isset($limit) ? $limit : $this->maxPosts,
-                'order' => 'created_time DESC'
-            ));
-
-        $pid = null;
-
         if (!empty($postModels)) {
             while ($postModels->next()) {
                 if (! isset($pid) || $pid !== $postModels->current()->pid) {

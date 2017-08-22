@@ -49,11 +49,7 @@ $GLOBALS['BE_MOD']['Facebook']['Facebook-Seiten'] = array(
         'tl_facebook_events',
         'tl_facebook_galleries'
     ),
-    'icon' => 'system/modules/contao-facebook-connector_basic/assets/img/page.png',
-    // 'getPosts' => array(
-    //     'postyou\FbBackendWrapperBasic',
-    //     'getPosts'
-    // )
+    'icon' => 'system/modules/contao-facebook-connector_basic/assets/img/page.png'
 );
 
 $GLOBALS['BE_MOD']['Facebook']['Einstellungen'] = array(
@@ -66,3 +62,4 @@ $GLOBALS['BE_MOD']['Facebook']['Einstellungen'] = array(
 $GLOBALS['TL_CTE']['Facebook']['facebook_post_list'] = 'postyou\FacebookPostList';
 
 $GLOBALS['TL_CONFIG']['facebookApiVersion'] = 'v2.7';
+

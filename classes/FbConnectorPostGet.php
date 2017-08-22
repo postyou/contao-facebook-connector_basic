@@ -477,7 +477,7 @@ class FbConnectorPostGet extends \FbConnector
 
     private function getHeadlineAndMessage($str)
     {
-        $matches;
+        $matches = "";
         preg_match('/(.*?[?!]|.*?(?=[.]\s)|.*)([.]*\s*)?([\s\S]*)/', $str, $matches);
         return $matches;
     }
