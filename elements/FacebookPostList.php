@@ -128,12 +128,12 @@ class FacebookPostList extends \ContentElement
                 ' ...');
                     \System::loadLanguageFile('tl_facebook_posts');
 
-                    $objTemplate->facebookLink = '<a target="_blank" href="'.$postModels->current()->facebookLink.'">'.($post['type'] == 'video' ? $GLOBALS['TL_LANG']['tl_facebook_posts']['videoLinkText'] : $GLOBALS['TL_LANG']['tl_facebook_posts']['facebookLinkText']).'</a>';
+                    $objTemplate->facebookLink = '<a target="_blank" href="'.$postModels->current()->facebookLink.'">'.($postModels->current()->type == 'video' ? $GLOBALS['TL_LANG']['tl_facebook_posts']['videoLinkText'] : $GLOBALS['TL_LANG']['tl_facebook_posts']['facebookLinkText']).'</a>';
                 } else {
                     $objTemplate->message = $postModels->current()->postMessage;
                     if ($this->showFacebookLinkAlways) {
                         \System::loadLanguageFile('tl_facebook_posts');
-                        $objTemplate->facebookLink = '<a target="_blank" href="'.$postModels->current()->facebookLink.'">'.($post['type'] == 'video' ? $GLOBALS['TL_LANG']['tl_facebook_posts']['videoLinkText'] : $GLOBALS['TL_LANG']['tl_facebook_posts']['facebookLinkText']).'</a>';
+                        $objTemplate->facebookLink = '<a target="_blank" href="'.$postModels->current()->facebookLink.'">'.($postModels->current()->type == 'video' ? $GLOBALS['TL_LANG']['tl_facebook_posts']['videoLinkText'] : $GLOBALS['TL_LANG']['tl_facebook_posts']['facebookLinkText']).'</a>';
                     }
                 }
 

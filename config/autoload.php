@@ -26,7 +26,6 @@ ClassLoader::addClasses(array
 	// Classes
 	'postyou\ConnectionType'              => 'system/modules/contao-facebook-connector_basic/classes/ConnectionType.php',
 	'postyou\ContaoPersistentDataHandler' => 'system/modules/contao-facebook-connector_basic/classes/ContaoPersistentDataHandler.php',
-	'postyou\FbBackendWrapperBasic'       => 'system/modules/contao-facebook-connector_basic/classes/FbBackendWrapperBasic.php',
 	'postyou\FbConnector'                 => 'system/modules/contao-facebook-connector_basic/classes/FbConnector.php',
 	'postyou\FbConnectorHelper'           => 'system/modules/contao-facebook-connector_basic/classes/FbConnectorHelper.php',
 	'postyou\FbConnectorModelFactory'     => 'system/modules/contao-facebook-connector_basic/classes/FbConnectorModelFactory.php',
