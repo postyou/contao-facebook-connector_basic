@@ -12,7 +12,9 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0
  */
 
-use Facebook\Facebook;
+ use Contao\Environment;
+ use Facebook\Facebook;
+ use postyou\ConnectionType;
 
 $GLOBALS['TL_DCA']['tl_facebook_sites'] = array(
     'config' => array(
