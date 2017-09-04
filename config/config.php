@@ -23,7 +23,7 @@ if (TL_MODE == 'BE') {
     $GLOBALS['TL_CSS'][] = 'system/modules/contao-facebook-connector_basic/assets/css/backend.css';
 }
 
-$GLOBALS['TL_CSS'][] = 'system/modules/contao-facebook-connector_basic/assets/css/default.css';
+$GLOBALS['TL_CSS'][] = 'system/modules/contao-facebook-connector_basic/assets/css/default.css|static';
 
 $timeStrLookup = array(
                     'monthly' => 'Monthly',
@@ -62,4 +62,3 @@ $GLOBALS['BE_MOD']['Facebook']['Einstellungen'] = array(
 $GLOBALS['TL_CTE']['Facebook']['facebook_post_list'] = 'postyou\FacebookPostList';
 
 $GLOBALS['TL_CONFIG']['facebookApiVersion'] = 'v2.7';
-
