@@ -116,7 +116,7 @@ $GLOBALS['TL_LANG']['tl_facebook_sites']['disabledSynchronizeEventsText'] = "Die
 $GLOBALS['TL_LANG']['tl_facebook_sites']['disabledEventsModuleText'] = "Die Veranstaltungen werden &uuml;ber das Contao Eventmodul verwaltet.";
 $GLOBALS['TL_LANG']['tl_facebook_sites']['disabledSynchronizeGalleriesText'] = "Die Galerien werden nicht synchronisiert.";
 $GLOBALS['TL_LANG']['tl_facebook_sites']['waitingTimeText'] = "Der Vorgang kann u.U. einige Minuten in Anspruch nehmen.";
-$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl'] = "http://www.postyou.de";
+$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl'] = "https://www.postyou.de/contao-facebook-connector.html";
 $GLOBALS['TL_LANG']['tl_facebook_sites']['proVersionLink'] = "<a class=\"pro_version_link\" target=\"_blank\" href=\"".$GLOBALS['TL_LANG']['tl_facebook_sites']['postyouFacebookModulUrl']."\">weitere Informationen</a>";
 $GLOBALS['TL_LANG']['tl_facebook_sites']['onlyProVersionTxt'] = "Diese Funktion ist nur in der Pro-Version enthalten. ".$GLOBALS['TL_LANG']['tl_facebook_sites']['proVersionLink'];
 
