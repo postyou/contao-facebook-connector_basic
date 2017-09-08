@@ -4,7 +4,7 @@ Facebook Connector for Contao - Basic Version
 
 With this module you can easily synchronize Facebook posts with your Contao installation.
 The module is splitten up into two versions. The basic version you can find here and a "Pro Version" with additional features.
-If you interested in the professional version, please contact us: https://www.postyou.de/kontakt.html
+If you interested in the professional version, please contact us: https://www.postyou.de/contao-facebook-connector.html
 
 ## What's included
 
