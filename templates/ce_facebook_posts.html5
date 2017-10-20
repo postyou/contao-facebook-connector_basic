@@ -19,12 +19,20 @@
         	<?php endif; ?>
         <?php endif; ?>
 
-        <? if ($this->imagePaths): ?>
-                <? foreach ($this->imagePaths as $index => $path): ?>
+        <? if ($this->images): ?>
+                <? foreach ($this->images as $index => $image): ?>
                     <? if ($index === 0): ?>
-                        <figure class="image_container <?= $this->floatClass; ?>">
+                        <figure class="image_container float_<?= $this->floatClass; ?>">
                             <a class="cboxElement" href="<?= $path['path'] ?>" data-lightbox="<?='lb'.$this->cssID?>">
-                                <img src="<?= $path['resizedPath'] ?: $path['path']?>" />
+
+                              <?php
+                                if (!empty($image['picture'])) {
+                                  $this->insert('picture_default', $image['picture']);
+                                } else {
+                                  echo '<img src="'.$image['path'].'"" />';
+                                }
+
+                              ?>
                             </a>
                         </figure>
                     <? else: ?>

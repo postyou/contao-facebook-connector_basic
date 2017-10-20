@@ -154,25 +154,24 @@ class FacebookPostList extends \ContentElement
                 if ($facebookSiteModel->saveAttachmentsToFilesystem) {
                     $multiSRC = unserialize($postModels->current()->multiSRC);
 
-                    $imagePaths = array();
+                    $images = array();
 
                     if (is_array($multiSRC)) {
                         foreach ($multiSRC as $uuid) {
                             $size = unserialize($this->sizeFacebook);
                             $path = \FilesModel::findByUuid($uuid)->path;
+                            $tempArray = array();
                             if (!empty($path)) {
                                 if (is_array($size) && (!empty($size[0]))) {
-                                    $image = \Image::create(\FilesModel::findByUuid($uuid)->path,
-                                      $size)->executeResize()->getResizedPath();
-
-                                    $imagePaths[] = array('resizedPath' => $image, 'path' => \FilesModel::findByUuid($uuid)->path);
-                                } else {
-                                    $imagePaths[]['path'] = \FilesModel::findByUuid($uuid)->path;
+                                    $picture = \Picture::create(\FilesModel::findByUuid($uuid)->path, $size)->getTemplateData();
+                                    $tempArray['picture'] = $picture;
                                 }
+                                $tempArray['imagePath'] = $path;
                             }
-                        }
 
-                        $objTemplate->imagePaths = $imagePaths;
+                            $images[] = $tempArray;
+                        }
+                        $objTemplate->images = $images;
                     }
                 } else {
                     $objTemplate->imageSrcFacebook = $postModels->current()->imageSrcFacebook;
