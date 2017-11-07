@@ -36,7 +36,7 @@
                             </a>
                         </figure>
                     <? else: ?>
-                        <a class="cboxElement" style="display:none;" href="<?= $path['path'] ?>" data-lightbox="<?='lb'.$this->cssID?>"></a>
+                        <a class="cboxElement" style="display:none;" href="<?= $image['imagePath'] ?>" data-lightbox="<?='lb'.$this->cssID?>"></a>
                     <? endif; ?>
                 <? endforeach; ?>
 
