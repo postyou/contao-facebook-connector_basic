@@ -167,12 +167,13 @@ class FbConnectorPostGet extends \FbConnector
                       break;
                   case 'status':
                   case 'photo':
+                  case 'event':
                   default:
                       $searchStr = $post['message'];
                       break;
                 }
 
-                $searchStr = htmlentities($searchStr);
+                $searchStr = htmlentities($searchStr,ENT_QUOTES, 'UTF-8');
                 $searchStr = \FbConnectorHelper::removeEmoticons($searchStr);
 
                 if ($facebookSiteModel->headlineType == 'length') {
@@ -343,6 +344,12 @@ class FbConnectorPostGet extends \FbConnector
                                             ));
                                     }
                                 }
+                            } else {
+                                $model->imageSrcFacebook = $this->addBlobData($model->imageSrcFacebook,
+                                    $queryArr['url'] ?: $post['full_picture']);
+                                $model->addSpecificData(array(
+                                    'floating' => $facebookSiteModel->floating
+                                ));
                             }
 
                             $model->save();
