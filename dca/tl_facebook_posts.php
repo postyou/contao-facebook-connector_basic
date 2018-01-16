@@ -50,7 +50,7 @@ $GLOBALS['TL_DCA']['tl_facebook_posts'] = array(
         'sorting' => array(
             'mode' => 4,
             'fields' => array(
-                "created_time, title, facebookPostType"
+                "created_time DESC, title, facebookPostType"
             ),
             'panelLayout' => ('filter;search,sort;limit'),
             'disableGrouping' => true,
