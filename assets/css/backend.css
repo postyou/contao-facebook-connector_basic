@@ -153,8 +153,10 @@ input[disabled=""] + label em {
 
 .choose_galleries {
 	height: auto;
+	position: relative;
+	z-index: 2;
 }
 
 .autoSyncGalleryOptions {
-	float: right;
+	float: left;
 }
