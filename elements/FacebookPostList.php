@@ -151,10 +151,11 @@ class FacebookPostList extends \ContentElement
                 $objTemplate->images = null;
                 $objTemplate->imageSrcFacebook = null;
 
+                $images = array();
+
                 if ($facebookSiteModel->saveAttachmentsToFilesystem) {
                     $multiSRC = unserialize($postModels->current()->multiSRC);
 
-                    $images = array();
 
                     if (is_array($multiSRC)) {
                         foreach ($multiSRC as $uuid) {
@@ -197,7 +198,7 @@ class FacebookPostList extends \ContentElement
                 $objTemplate->class = 'facebook-post block ' . ((++ $count == 1) ? ' first' : '') .
                      (($count == $total) ? ' last' : '') . ((($count % 2) == 0) ? ' odd' : ' even');
 
-                $imagePathCount = count($imagePaths);
+                $imagePathCount = count($images);
                 $objTemplate->beforeStyle = null;
                 if ($imagePathCount > 1) {
                     $objTemplate->beforeStyle = '<style>#'.$cssID.' .image_container a.cboxElement:after {
