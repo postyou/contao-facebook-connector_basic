@@ -156,9 +156,8 @@ class FbConnectorPostGet extends \FbConnector
                     return;
                 }
 
-                $title;
-                $message;
-                $searchStr;
+                $title = '';
+                $message = '';
 
                 switch ($post['type']) {
                   case 'link':
