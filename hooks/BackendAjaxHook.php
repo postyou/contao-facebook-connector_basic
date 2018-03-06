@@ -67,7 +67,7 @@ class BackendAjaxHook extends \Backend
                         'reportTypeGallery'
                     ));
 
-                 echo json_encode(html_entity_decode($url));
+                 echo json_encode('/'.html_entity_decode($url));
                  exit();
 
                 break;
