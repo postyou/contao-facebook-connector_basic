@@ -59,6 +59,13 @@ $GLOBALS['BE_MOD']['Facebook']['Einstellungen'] = array(
     'icon' => 'system/modules/contao-facebook-connector_basic/assets/img/world_edit.png'
 );
 
+//// BE Module
+//$GLOBALS['BE_MOD']['system']['tl_postyou_checklist'] = array(
+//    'icon'   => 'system/modules/postyou_checklist/assets/accept.png',
+//    'callback' => 'ModulePostyouChecklist'
+//);
+
+
 $GLOBALS['TL_CTE']['Facebook']['facebook_post_list'] = 'postyou\FacebookPostList';
 
-$GLOBALS['TL_CONFIG']['facebookApiVersion'] = 'v2.7';
+$GLOBALS['TL_CONFIG']['facebookApiVersion'] = 'v2.12';
