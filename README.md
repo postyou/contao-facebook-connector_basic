@@ -3,7 +3,7 @@ Contao Facebook Connector - Basic Version
 Facebook Connector for Contao - Basic Version
 
 ```html
-<span style="color:red;">Note: From 4th to 11th of April in 2018 Facebook did some sudden API changes. So the module is not working as expected and some features (e.g. event synchronization) may temporarily or no longer possible. These changes affect all Facebook plugins and we are waiting for further communications from Facebook. Currently we can no longer guarantee the further development of the module.</span>
+<span style="color:red;">Note: From 4th to 11th of April in 2018 Facebook did some sudden API changes. So the module is not working as expected and some features (e.g. event synchronization) may temporarily or no longer possible. These changes affect all Facebook plugins and we are waiting for further communications from Facebook. Currently we can no longer guarantee the further development of the module.</span> 
 ```
 
 With this module you can easily synchronize Facebook posts with your Contao installation.
