@@ -79,8 +79,8 @@ class FbConnectorHelper
         }
         $str = ' ' . $str;
         $str = preg_replace(
-        '`((https?|ftps?):\/\/[^"<\s]+)(?![^<>]*>|[^"]*?<\/a)`i',
-        '$1<a href="$2"'.$attrs.'>$2</a>',
+          '`((https?|ftps?):\/\/[^"<\s]+)(?![^<>]*>|[^"]*?<\/a)`i',
+          '<a href="$1"'.$attrs.'>$1</a>',
         $str
         );
         $str = substr($str, 1);
