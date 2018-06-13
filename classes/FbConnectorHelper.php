@@ -25,10 +25,12 @@ class FbConnectorHelper
     public static function addRejectedPostMessage($date, $model, $message)
     {
         $session = \Session::getInstance();
-        $session->get('tl_facebook_sites')['rejectedPosts'][] = $date->format(
-            $GLOBALS['TL_CONFIG']['datimFormat']) . ' ' .
-             ((! empty($model->title)) ? $model->title : $model->headline) . ' - Ursache: ' .
-             $message;
+        $sites = $session->get('tl_facebook_sites');
+        $sites['rejectedPosts'][] = $date->format(
+                $GLOBALS['TL_CONFIG']['datimFormat']) . ' ' .
+            ((! empty($model->title)) ? $model->title : $model->headline) . ' - Ursache: ' .
+            $message;
+        $session->set('tl_facebook_sites', $sites);
     }
 
     public static function addErrorMessage($exception)
