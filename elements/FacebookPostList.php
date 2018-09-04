@@ -168,6 +168,8 @@ class FacebookPostList extends \ContentElement
                                     $tempArray['picture'] = $picture;
                                 }
                                 $tempArray['imagePath'] = $path;
+                            } else {
+                              continue;
                             }
 
                             $images[] = $tempArray;
