@@ -163,7 +163,7 @@ class FacebookPostList extends \ContentElement
                             $path = \FilesModel::findByUuid($uuid)->path;
                             $tempArray = array();
                             if (!empty($path)) {
-                                if (is_array($size) && (!empty($size[0]))) {
+                                if (is_array($size) && (!empty($size))) {
                                     $picture = \Picture::create(\FilesModel::findByUuid($uuid)->path, $size)->getTemplateData();
                                     $tempArray['picture'] = $picture;
                                 }
