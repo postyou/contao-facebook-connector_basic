@@ -42,7 +42,7 @@ class FbConnectorPostGet extends \FbConnector
     public function getPostsForAlias($facebookAlias)
     {
         $url = parent::getBaseUrl() . '/' . parent::getVersion() . '/' . $facebookAlias . '/posts?' .
-           parent::getAccessTokenQuery();
+            parent::getAccessTokenQuery();
 
 
         if (! empty($this->fields)) {
@@ -75,7 +75,7 @@ class FbConnectorPostGet extends \FbConnector
 
         if ($limitCounter <= $this->limit || empty($this->limit)) {
             while (! empty($facebookPosts['paging']['next']) &&
-                 ($limitCounter < $this->limit || empty($this->limit))) {
+                ($limitCounter < $this->limit || empty($this->limit))) {
                 $facebookPosts = parent::fetchData($facebookPosts['paging']['next']);
 
                 if (empty($this->limit)) {
@@ -134,7 +134,9 @@ class FbConnectorPostGet extends \FbConnector
 
         if (! empty($facebookPostData)) {
             foreach ($facebookPostData as $post) {
+
                 $this->savePostInDb($post, $facebookSiteModel);
+
             }
         }
         return $facebookPostData;
@@ -146,6 +148,7 @@ class FbConnectorPostGet extends \FbConnector
             $modelCollection = \FbConnectorModelFactory::create($facebookSiteModel, $post['id']);
 
             foreach ($modelCollection as $model) {
+
                 $postWasUpdated = true;
                 $date = new \DateTime($post['updated_time']);
 
@@ -160,20 +163,24 @@ class FbConnectorPostGet extends \FbConnector
                 $message = '';
 
                 switch ($post['type']) {
-                  case 'link':
-                  case 'video':
-                      $searchStr = $post['message'] ?: $post['attachments']['data'][0]['description'];
-                      break;
-                  case 'status':
-                  case 'photo':
-                  case 'event':
-                  default:
-                      $searchStr = $post['message'];
-                      break;
+                    case 'link':
+                    case 'video':
+                        $searchStr = $post['message'] ?: $post['attachments']['data'][0]['description'];
+                        break;
+                    case 'status':
+                    case 'photo':
+                    case 'event':
+                    default:
+                        $searchStr = $post['message'];
+                        break;
                 }
+
+
 
                 $searchStr = htmlentities($searchStr,ENT_QUOTES, 'UTF-8');
                 $searchStr = \FbConnectorHelper::removeEmoticons($searchStr);
+
+
 
                 if ($facebookSiteModel->headlineType == 'length') {
                     $this->splitTitleAndMessage($title, $message, $searchStr);
@@ -186,6 +193,8 @@ class FbConnectorPostGet extends \FbConnector
                         $message = $matches[count($matches)-1];
                     }
                 }
+
+
 
                 $dateCreated = new \DateTime($post['created_time']);
 
@@ -252,6 +261,8 @@ class FbConnectorPostGet extends \FbConnector
 
                 $model = $model->save();
 
+
+
                 // Bild von externem Link
                 if (! empty($post['full_picture']) && $post['type'] === 'link' && $post['attachments']['data'][0]['type'] !== 'multi_share') {
                     if (strpos($post['full_picture'], '://external')) {
@@ -260,24 +271,24 @@ class FbConnectorPostGet extends \FbConnector
 
                     if ($facebookSiteModel->saveAttachmentsToFilesystem) {
                         $pictureModel = $this->savePictureToFilesystem($post['id'],
-                        $queryArr['url'] ?: $post['full_picture'], true, $post['id'],
-                        $model->getFolderPath());
+                            $queryArr['url'] ?: $post['full_picture'], true, $post['id'],
+                            $model->getFolderPath());
 
                         if (isset($pictureModel)) {
                             $model->addSpecificData(array(
-                          'addImage' => true,
-                          'singleSRC' => $pictureModel->uuid,
-                          'fullsize' => true,
-                          'floating' => $facebookSiteModel->floating,
-                          'multiSRC' => $this->addBlobData($model->multiSRC,
-                              $pictureModel->uuid)
-                        ));
+                                'addImage' => true,
+                                'singleSRC' => $pictureModel->uuid,
+                                'fullsize' => true,
+                                'floating' => $facebookSiteModel->floating,
+                                'multiSRC' => $this->addBlobData($model->multiSRC,
+                                    $pictureModel->uuid)
+                            ));
                         }
                     } else {
                         $model->imageSrcFacebook = $this->addBlobData($model->imageSrcFacebook,
-                        $queryArr['url'] ?: $post['full_picture']);
+                            $queryArr['url'] ?: $post['full_picture']);
                         $model->addSpecificData(array(
-                          'floating' => $facebookSiteModel->floating
+                            'floating' => $facebookSiteModel->floating
                         ));
                     }
 
@@ -286,18 +297,18 @@ class FbConnectorPostGet extends \FbConnector
 
                 if (! empty($post['attachments'])) {
                     if ($post['attachments']['data'][0]['type'] == 'album' ||
-                    $post['attachments']['data'][0]['type'] == 'new_album' ||
-                     $post['attachments']['data'][0]['type'] == 'photo' ||
-                     $post['attachments']['data'][0]['type'] == 'cover_photo'||
-                     $post['attachments']['data'][0]['type'] == 'event' ||
-                     $post['attachments']['data'][0]['type'] == 'link' ||
-                     $post['attachments']['data'][0]['type'] == 'share' ||
-                     $post['attachments']['data'][0]['type'] == 'multi_share') {
-                        if (!empty($post['attachments']['data'][0]['subattachments']) &&
-                        ($post['attachments']['data'][0]['type'] == 'album' ||
                         $post['attachments']['data'][0]['type'] == 'new_album' ||
+                        $post['attachments']['data'][0]['type'] == 'photo' ||
+                        $post['attachments']['data'][0]['type'] == 'cover_photo'||
+                        $post['attachments']['data'][0]['type'] == 'event' ||
+                        $post['attachments']['data'][0]['type'] == 'link' ||
                         $post['attachments']['data'][0]['type'] == 'share' ||
-                        $post['attachments']['data'][0]['type'] == 'multi_share')) {
+                        $post['attachments']['data'][0]['type'] == 'multi_share') {
+                        if (!empty($post['attachments']['data'][0]['subattachments']) &&
+                            ($post['attachments']['data'][0]['type'] == 'album' ||
+                                $post['attachments']['data'][0]['type'] == 'new_album' ||
+                                $post['attachments']['data'][0]['type'] == 'share' ||
+                                $post['attachments']['data'][0]['type'] == 'multi_share')) {
                             $attachmentData = $post['attachments']['data'][0]['subattachments']['data'];
                         } else {
                             $attachmentData = $post['attachments']['data'];
@@ -306,7 +317,7 @@ class FbConnectorPostGet extends \FbConnector
                         $contentModelId;
                         foreach ($attachmentData as $index => $subAttachment) {
                             if (($post['attachments']['data'][0]['type'] == 'multi_share' ||
-                                $post['attachments']['data'][0]['type'] == 'share') && $index > 0) {
+                                    $post['attachments']['data'][0]['type'] == 'share') && $index > 0) {
                                 break;
                             }
 
@@ -357,8 +368,8 @@ class FbConnectorPostGet extends \FbConnector
                 }
 
                 \FbConnectorHelper::updateSessionValuesForResponse('savedPostsCount', 'savedPosts',
-                isset($model->title) ? $model->title : $model->headline, $dateCreated,
-                $postWasUpdated);
+                    isset($model->title) ? $model->title : $model->headline, $dateCreated,
+                    $postWasUpdated);
             }
         } catch (\Throwable $e) {
             // echo '500 Internal Server Error';
@@ -368,15 +379,24 @@ class FbConnectorPostGet extends \FbConnector
     }
 
     private function savePictureToFilesystem($postId, $imageSrc, $isAttachment = false,
-        $attachmentId = null, $postFolderPath)
+                                             $attachmentId = null, $postFolderPath)
     {
         $folder = new \Folder($postFolderPath);
 
 
         $fileType = $this->getFileTypeFromUrl($imageSrc);
 
-        if (empty($fileType)) {
-          return;
+
+
+        if (!in_array($fileType, array('png',
+                'jpg',
+                'jpeg',
+                'gif',
+                'bmp',
+                'iff',
+                'wbmp',
+                'webp')) || empty($fileType)) {
+            return;
         }
 
         if ($isAttachment) {
@@ -399,6 +419,8 @@ class FbConnectorPostGet extends \FbConnector
         curl_close($ch);
 
         fclose($fp);
+
+
 
         if ($this->isValidImage(TL_ROOT . '/' . $picturePath)) {
             $pictureModel = Dbafs::addResource($picturePath);
@@ -432,9 +454,9 @@ class FbConnectorPostGet extends \FbConnector
     private function isUsefulFacebookPost($post)
     {
         if ((empty($post['message']) && empty($post['attachments']))
-          || ($post['type'] === 'event' && empty($post['message']))
-          || ($post['type'] === 'link' && empty($post['message']) && empty($post['attachments']['data'][0]['description']))
-        || ($post['type'] === 'photo' && ($post['attachments']['data'][0]['type'] == 'cover_photo' || ($post['attachments']['data'][0]['type'] == 'profile_media')) && empty($post['message']))) {
+            || ($post['type'] === 'event' && empty($post['message']))
+            || ($post['type'] === 'link' && empty($post['message']) && empty($post['attachments']['data'][0]['description']))
+            || ($post['type'] === 'photo' && ($post['attachments']['data'][0]['type'] == 'cover_photo' || ($post['attachments']['data'][0]['type'] == 'profile_media')) && empty($post['message']))) {
             return false;
         }
 
@@ -444,22 +466,23 @@ class FbConnectorPostGet extends \FbConnector
     private function loadAttachmentData($postId)
     {
         $url = parent::getBaseUrl() . '/' . parent::getVersion() . '/' . $postId . '/attachments?' .
-             parent::getAccessTokenQuery();
+            parent::getAccessTokenQuery();
         return parent::fetchData($url);
     }
 
     private function getFileTypeFromUrl($imageSrc)
     {
-      $filteredStr = substr($imageSrc, strrpos($imageSrc, '.') + 1);
-      $fileType = '';
-      for ($i = 0; $i < strlen($filteredStr); $i++) {
-        if ($filteredStr[$i] == '?' || $filteredStr[$i] == '&' || ctype_digit($filteredStr[$i])) {
-          break;
+        $imageSrc = substr($imageSrc, 0, strpos($imageSrc, '?'));
+        $filteredStr = substr($imageSrc, strrpos($imageSrc, '.') + 1);
+        $fileType = '';
+        for ($i = 0; $i < strlen($filteredStr); $i++) {
+            if ($filteredStr[$i] == '?' || $filteredStr[$i] == '&' || ctype_digit($filteredStr[$i])) {
+                break;
+            }
+            $fileType .= $filteredStr[$i];
         }
-        $fileType .= $filteredStr[$i];
-      }
 
-      return $fileType;
+        return $fileType;
     }
 
     private function addBlobData($serializedData, $dataToAdd)
@@ -478,15 +501,15 @@ class FbConnectorPostGet extends \FbConnector
         list($width, $height, $type, $attr) = getimagesize($path);
 
         if (isset($type) && in_array($type,
-            array(
-                IMAGETYPE_PNG,
-                IMAGETYPE_JPEG,
-                IMAGETYPE_GIF,
-                IMAGETYPE_BMP,
-                IMAGETYPE_IFF,
-                IMAGETYPE_WBMP,
-                IMAGETYPE_WEBP
-            ))) {
+                array(
+                    IMAGETYPE_PNG,
+                    IMAGETYPE_JPEG,
+                    IMAGETYPE_GIF,
+                    IMAGETYPE_BMP,
+                    IMAGETYPE_IFF,
+                    IMAGETYPE_WBMP,
+                    IMAGETYPE_WEBP
+                ))) {
             return true;
         }
 
