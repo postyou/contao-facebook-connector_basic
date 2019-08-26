@@ -68,4 +68,4 @@ $GLOBALS['BE_MOD']['Facebook']['Einstellungen'] = array(
 
 $GLOBALS['TL_CTE']['Facebook']['facebook_post_list'] = 'postyou\FacebookPostList';
 
-$GLOBALS['TL_CONFIG']['facebookApiVersion'] = 'v2.12';
+$GLOBALS['TL_CONFIG']['facebookApiVersion'] = 'v4.0';

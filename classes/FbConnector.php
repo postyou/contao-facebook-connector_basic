@@ -1,21 +1,5 @@
 <?php
-
-/**
- *
- * Extension for Contao Open Source CMS (contao.org)
- *
- * Copyright (c) 2016-2018 POSTYOU
- *
- * @package
- * @author  Mario Gienapp
- * @link    http://www.postyou.de
- * @license http://www.apache.org/licenses/LICENSE-2.0
- */
-
 namespace postyou;
-
-use Facebook\Facebook;
-use Facebook\Exceptions\FacebookAuthenticationException;
 
 class FbConnector
 {
@@ -33,7 +17,6 @@ class FbConnector
     {
         $this->arrConfig = $arrConfig;
         $this->initFacebookPhpSdk();
-        \System::loadLanguageFile('tl_facebook_sites');
     }
 
     public static function getInstance(array $arrCustomOpt = null)
@@ -43,6 +26,7 @@ class FbConnector
             'version' => \Config::get('facebookApiVersion'),
             'appID' => \Config::get('appID'),
             'appSecret' => \Config::get('appSecret'),
+            'userAccessToken' => \Config::get('userAccessToken'),
             'connectionType' => ConnectionType::POST_GET
         );
 
@@ -64,17 +48,11 @@ class FbConnector
 
     protected function getAppID()
     {
-        if (empty($this->arrConfig['appID'])) {
-            throw new \Exception($GLOBALS['TL_LANG']['tl_facebook_sites']['noAppIDException']);
-        }
         return $this->arrConfig['appID'];
     }
 
     protected function getAppSecret()
     {
-        if (empty($this->arrConfig['appSecret'])) {
-            throw new \Exception($GLOBALS['TL_LANG']['tl_facebook_sites']['noAppSecretException']);
-        }
         return $this->arrConfig['appSecret'];
     }
 
@@ -90,11 +68,8 @@ class FbConnector
 
     public function getAccessTokenQuery()
     {
-        try {
-            return 'access_token=' . $this->getAppID() . '|' . $this->getAppSecret();
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
+//        return 'access_token=' . $this->arrConfig['appID'] . '|' . $this->arrConfig['appSecret'];
+        return 'access_token=' . $this->arrConfig['userAccessToken'];
     }
 
     public function setLimit($limit)
